@@ -3,3 +3,4 @@ next.config.js
 .next
 lint-staged.config.js
 commitlint.config.js
+generated/
