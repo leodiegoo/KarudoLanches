@@ -1,7 +1,8 @@
 import { createContext } from "@/@core/graphql/context";
-import { schema } from "@/@core/graphql/schema";
 import { ApolloServer } from "apollo-server-micro";
-import { NextApiRequest, NextApiResponse, PageConfig } from "next";
+import { NextApiHandler, PageConfig } from "next";
+import cors from "micro-cors";
+import { schema } from "@/@core/graphql/schema";
 
 const apolloServer = new ApolloServer({
   context: createContext,
@@ -9,29 +10,43 @@ const apolloServer = new ApolloServer({
   schema
 });
 
-const startServer = apolloServer.start();
-
 export const config: PageConfig = {
   api: {
     bodyParser: false
   }
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Origin", "https://studio.apollographql.com");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+let apolloServerHandler: NextApiHandler;
+async function getApolloServerHandler() {
+  if (!apolloServerHandler) {
+    await apolloServer.start();
+
+    apolloServerHandler = apolloServer.createHandler({
+      path: "/api/graphql"
+    });
+  }
+
+  return apolloServerHandler;
+}
+
+const handler: NextApiHandler = async (req, res) => {
+  // @ts-ignore
+  const apolloHandler = await getApolloServerHandler();
+
   if (req.method === "OPTIONS") {
     res.end();
-    return false;
+    return;
   }
-  await startServer;
 
-  await apolloServer.createHandler({
-    path: "/api/graphql"
-  })(req, res);
+  return apolloHandler(req, res);
 };
 
-// export default apolloServer.createHandler({
-//   path: "/api/graphql"
-// });
+const corsConfig =
+  process.env.NODE_ENV === "development"
+    ? {
+        origin: "https://studio.apollographql.com",
+        allowCredentials: true
+      }
+    : {};
+
+export default cors(corsConfig)(handler as any);

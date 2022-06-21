@@ -1,6 +1,11 @@
-import { makeSchema, objectType, queryType } from "@nexus/schema";
+import { asNexusMethod, makeSchema, mutationType, objectType, queryType } from "@nexus/schema";
 import { nexusPrisma } from "nexus-plugin-prisma";
 import path from "path";
+import { applyMiddleware } from "graphql-middleware";
+import { DateTimeResolver } from "graphql-scalars";
+import { permissions } from "../permissions";
+
+export const GQLDate = asNexusMethod(DateTimeResolver, "date");
 
 const Query = queryType({
   definition(t) {
@@ -12,6 +17,16 @@ const Query = queryType({
     });
     t.crud.tenant();
     t.crud.tenants();
+  }
+});
+
+const Mutation = mutationType({
+  definition(t) {
+    t.crud.createOneTenant();
+    t.crud.deleteOneTenant();
+    t.crud.deleteManyTenant();
+    t.crud.updateOneTenant();
+    t.crud.updateManyTenant();
   }
 });
 
@@ -43,8 +58,8 @@ const Tenant = objectType({
   }
 });
 
-export const schema = makeSchema({
-  types: [User, Tenant, Query],
+export const baseSchema = makeSchema({
+  types: [User, Tenant, Query, Mutation, GQLDate],
   // @ts-ignore
   plugins: [nexusPrisma({ experimentalCRUD: true })],
   outputs: {
@@ -65,18 +80,5 @@ export const schema = makeSchema({
     ]
   }
 });
-// import { makeSchema, connectionPlugin, queryType } from "nexus";
-// import { join } from "path";
 
-// export const schema = makeSchema({
-//   types: [Query],
-//   plugins: [connectionPlugin()],
-//   outputs: {
-//     typegen: join(process.cwd(), "node_modules", "@types", "nexus-typegen", "index.d.ts"),
-//     schema: join(process.cwd(), "src", "@core", "graphql", "schema.graphql")
-//   },
-//   contextType: {
-//     export: "Context",
-//     module: join(process.cwd(), "src", "@core", "graphql", "context.ts")
-//   }
-// });
+export const schema = applyMiddleware(baseSchema, permissions);

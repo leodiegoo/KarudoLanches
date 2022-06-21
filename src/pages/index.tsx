@@ -14,6 +14,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import AllTenants from "@/components/AllTenants";
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState(10);
@@ -70,6 +72,14 @@ const Home: NextPage = () => {
             />
           </Box>
         </Box>
+      </Box>
+      <Box>
+        <button type="button" onClick={() => signIn()}>
+          Sign in
+        </button>
+      </Box>
+      <Box>
+        <AllTenants />
       </Box>
     </Container>
   );

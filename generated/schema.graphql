@@ -2,7 +2,310 @@
 ### Do not make changes to this file directly
 
 
+input AccountCreateManyUserInput {
+  access_token: String
+  expires_at: Int
+  id: String
+  id_token: String
+  provider: String!
+  providerAccountId: String!
+  refresh_token: String
+  scope: String
+  session_state: String
+  token_type: String
+  type: String!
+}
+
+input AccountCreateManyUserInputEnvelope {
+  data: [AccountCreateManyUserInput!]
+  skipDuplicates: Boolean
+}
+
+input AccountCreateNestedManyWithoutUserInput {
+  connect: [AccountWhereUniqueInput!]
+  connectOrCreate: [AccountCreateOrConnectWithoutUserInput!]
+  create: [AccountCreateWithoutUserInput!]
+  createMany: AccountCreateManyUserInputEnvelope
+}
+
+input AccountCreateOrConnectWithoutUserInput {
+  create: AccountCreateWithoutUserInput!
+  where: AccountWhereUniqueInput!
+}
+
+input AccountCreateWithoutUserInput {
+  access_token: String
+  expires_at: Int
+  id: String
+  id_token: String
+  provider: String!
+  providerAccountId: String!
+  refresh_token: String
+  scope: String
+  session_state: String
+  token_type: String
+  type: String!
+}
+
+input AccountListRelationFilter {
+  every: AccountWhereInput
+  none: AccountWhereInput
+  some: AccountWhereInput
+}
+
+input AccountProviderProviderAccountIdCompoundUniqueInput {
+  provider: String!
+  providerAccountId: String!
+}
+
+input AccountScalarWhereInput {
+  AND: [AccountScalarWhereInput!]
+  NOT: [AccountScalarWhereInput!]
+  OR: [AccountScalarWhereInput!]
+  access_token: StringNullableFilter
+  expires_at: IntNullableFilter
+  id: StringFilter
+  id_token: StringNullableFilter
+  provider: StringFilter
+  providerAccountId: StringFilter
+  refresh_token: StringNullableFilter
+  scope: StringNullableFilter
+  session_state: StringNullableFilter
+  token_type: StringNullableFilter
+  type: StringFilter
+  userId: StringFilter
+}
+
+input AccountUpdateManyMutationInput {
+  access_token: NullableStringFieldUpdateOperationsInput
+  expires_at: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  id_token: NullableStringFieldUpdateOperationsInput
+  provider: StringFieldUpdateOperationsInput
+  providerAccountId: StringFieldUpdateOperationsInput
+  refresh_token: NullableStringFieldUpdateOperationsInput
+  scope: NullableStringFieldUpdateOperationsInput
+  session_state: NullableStringFieldUpdateOperationsInput
+  token_type: NullableStringFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input AccountUpdateManyWithWhereWithoutUserInput {
+  data: AccountUpdateManyMutationInput!
+  where: AccountScalarWhereInput!
+}
+
+input AccountUpdateManyWithoutUserInput {
+  connect: [AccountWhereUniqueInput!]
+  connectOrCreate: [AccountCreateOrConnectWithoutUserInput!]
+  create: [AccountCreateWithoutUserInput!]
+  createMany: AccountCreateManyUserInputEnvelope
+  delete: [AccountWhereUniqueInput!]
+  deleteMany: [AccountScalarWhereInput!]
+  disconnect: [AccountWhereUniqueInput!]
+  set: [AccountWhereUniqueInput!]
+  update: [AccountUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [AccountUpdateManyWithWhereWithoutUserInput!]
+  upsert: [AccountUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input AccountUpdateWithWhereUniqueWithoutUserInput {
+  data: AccountUpdateWithoutUserInput!
+  where: AccountWhereUniqueInput!
+}
+
+input AccountUpdateWithoutUserInput {
+  access_token: NullableStringFieldUpdateOperationsInput
+  expires_at: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  id_token: NullableStringFieldUpdateOperationsInput
+  provider: StringFieldUpdateOperationsInput
+  providerAccountId: StringFieldUpdateOperationsInput
+  refresh_token: NullableStringFieldUpdateOperationsInput
+  scope: NullableStringFieldUpdateOperationsInput
+  session_state: NullableStringFieldUpdateOperationsInput
+  token_type: NullableStringFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input AccountUpsertWithWhereUniqueWithoutUserInput {
+  create: AccountCreateWithoutUserInput!
+  update: AccountUpdateWithoutUserInput!
+  where: AccountWhereUniqueInput!
+}
+
+input AccountWhereInput {
+  AND: [AccountWhereInput!]
+  NOT: [AccountWhereInput!]
+  OR: [AccountWhereInput!]
+  access_token: StringNullableFilter
+  expires_at: IntNullableFilter
+  id: StringFilter
+  id_token: StringNullableFilter
+  provider: StringFilter
+  providerAccountId: StringFilter
+  refresh_token: StringNullableFilter
+  scope: StringNullableFilter
+  session_state: StringNullableFilter
+  token_type: StringNullableFilter
+  type: StringFilter
+  user: UserWhereInput
+  userId: StringFilter
+}
+
+input AccountWhereUniqueInput {
+  id: String
+  provider_providerAccountId: AccountProviderProviderAccountIdCompoundUniqueInput
+}
+
+type AffectedRowsOutput {
+  count: Int!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
 scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input EnumRoleFieldUpdateOperationsInput {
+  set: Role
+}
+
+input EnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  not: NestedEnumRoleFilter
+  notIn: [Role!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+type Mutation {
+  createOneTenant(data: TenantCreateInput!): Tenant!
+  deleteManyTenant(where: TenantWhereInput): AffectedRowsOutput!
+  deleteOneTenant(where: TenantWhereUniqueInput!): Tenant
+  updateManyTenant(data: TenantUpdateManyMutationInput!, where: TenantWhereInput): AffectedRowsOutput!
+  updateOneTenant(data: TenantUpdateInput!, where: TenantWhereUniqueInput!): Tenant
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedEnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  not: NestedEnumRoleFilter
+  notIn: [Role!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
 
 type Query {
   allTenants: [Tenant]
@@ -10,11 +313,153 @@ type Query {
   tenants(after: TenantWhereUniqueInput, before: TenantWhereUniqueInput, first: Int, last: Int): [Tenant!]!
 }
 
+enum QueryMode {
+  default
+  insensitive
+}
+
 enum Role {
   ADMIN
   DELIVERYMAN
   TENANT
   USER
+}
+
+input SessionCreateManyUserInput {
+  expires: DateTime!
+  id: String
+  sessionToken: String!
+}
+
+input SessionCreateManyUserInputEnvelope {
+  data: [SessionCreateManyUserInput!]
+  skipDuplicates: Boolean
+}
+
+input SessionCreateNestedManyWithoutUserInput {
+  connect: [SessionWhereUniqueInput!]
+  connectOrCreate: [SessionCreateOrConnectWithoutUserInput!]
+  create: [SessionCreateWithoutUserInput!]
+  createMany: SessionCreateManyUserInputEnvelope
+}
+
+input SessionCreateOrConnectWithoutUserInput {
+  create: SessionCreateWithoutUserInput!
+  where: SessionWhereUniqueInput!
+}
+
+input SessionCreateWithoutUserInput {
+  expires: DateTime!
+  id: String
+  sessionToken: String!
+}
+
+input SessionListRelationFilter {
+  every: SessionWhereInput
+  none: SessionWhereInput
+  some: SessionWhereInput
+}
+
+input SessionScalarWhereInput {
+  AND: [SessionScalarWhereInput!]
+  NOT: [SessionScalarWhereInput!]
+  OR: [SessionScalarWhereInput!]
+  expires: DateTimeFilter
+  id: StringFilter
+  sessionToken: StringFilter
+  userId: StringFilter
+}
+
+input SessionUpdateManyMutationInput {
+  expires: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  sessionToken: StringFieldUpdateOperationsInput
+}
+
+input SessionUpdateManyWithWhereWithoutUserInput {
+  data: SessionUpdateManyMutationInput!
+  where: SessionScalarWhereInput!
+}
+
+input SessionUpdateManyWithoutUserInput {
+  connect: [SessionWhereUniqueInput!]
+  connectOrCreate: [SessionCreateOrConnectWithoutUserInput!]
+  create: [SessionCreateWithoutUserInput!]
+  createMany: SessionCreateManyUserInputEnvelope
+  delete: [SessionWhereUniqueInput!]
+  deleteMany: [SessionScalarWhereInput!]
+  disconnect: [SessionWhereUniqueInput!]
+  set: [SessionWhereUniqueInput!]
+  update: [SessionUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [SessionUpdateManyWithWhereWithoutUserInput!]
+  upsert: [SessionUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input SessionUpdateWithWhereUniqueWithoutUserInput {
+  data: SessionUpdateWithoutUserInput!
+  where: SessionWhereUniqueInput!
+}
+
+input SessionUpdateWithoutUserInput {
+  expires: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  sessionToken: StringFieldUpdateOperationsInput
+}
+
+input SessionUpsertWithWhereUniqueWithoutUserInput {
+  create: SessionCreateWithoutUserInput!
+  update: SessionUpdateWithoutUserInput!
+  where: SessionWhereUniqueInput!
+}
+
+input SessionWhereInput {
+  AND: [SessionWhereInput!]
+  NOT: [SessionWhereInput!]
+  OR: [SessionWhereInput!]
+  expires: DateTimeFilter
+  id: StringFilter
+  sessionToken: StringFilter
+  user: UserWhereInput
+  userId: StringFilter
+}
+
+input SessionWhereUniqueInput {
+  id: String
+  sessionToken: String
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 type Tenant {
@@ -26,6 +471,44 @@ type Tenant {
   updatedAt: DateTime!
 }
 
+input TenantCreateInput {
+  User: UserCreateNestedManyWithoutTenantInput
+  createdAt: DateTime
+  description: String!
+  id: String
+  name: String!
+  updatedAt: DateTime
+}
+
+input TenantUpdateInput {
+  User: UserUpdateManyWithoutTenantInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TenantUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TenantWhereInput {
+  AND: [TenantWhereInput!]
+  NOT: [TenantWhereInput!]
+  OR: [TenantWhereInput!]
+  User: UserListRelationFilter
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
+}
+
 input TenantWhereUniqueInput {
   id: String
 }
@@ -35,13 +518,148 @@ type User {
   email: String
   id: String!
   image: String
-  name: String!
+  name: String
   role: Role!
   tenant: Tenant
   tenantId: String
   updatedAt: DateTime!
 }
 
+input UserCreateManyTenantInput {
+  createdAt: DateTime
+  email: String
+  emailVerified: DateTime
+  id: String
+  image: String
+  name: String
+  role: Role
+  updatedAt: DateTime
+}
+
+input UserCreateManyTenantInputEnvelope {
+  data: [UserCreateManyTenantInput!]
+  skipDuplicates: Boolean
+}
+
+input UserCreateNestedManyWithoutTenantInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutTenantInput!]
+  create: [UserCreateWithoutTenantInput!]
+  createMany: UserCreateManyTenantInputEnvelope
+}
+
+input UserCreateOrConnectWithoutTenantInput {
+  create: UserCreateWithoutTenantInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutTenantInput {
+  accounts: AccountCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String
+  emailVerified: DateTime
+  id: String
+  image: String
+  name: String
+  role: Role
+  sessions: SessionCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
+}
+
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringNullableFilter
+  emailVerified: DateTimeNullableFilter
+  id: StringFilter
+  image: StringNullableFilter
+  name: StringNullableFilter
+  role: EnumRoleFilter
+  tenantId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input UserUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpdateManyWithWhereWithoutTenantInput {
+  data: UserUpdateManyMutationInput!
+  where: UserScalarWhereInput!
+}
+
+input UserUpdateManyWithoutTenantInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutTenantInput!]
+  create: [UserCreateWithoutTenantInput!]
+  createMany: UserCreateManyTenantInputEnvelope
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTenantInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutTenantInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTenantInput!]
+}
+
+input UserUpdateWithWhereUniqueWithoutTenantInput {
+  data: UserUpdateWithoutTenantInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithoutTenantInput {
+  accounts: AccountUpdateManyWithoutUserInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  sessions: SessionUpdateManyWithoutUserInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UserUpsertWithWhereUniqueWithoutTenantInput {
+  create: UserCreateWithoutTenantInput!
+  update: UserUpdateWithoutTenantInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  accounts: AccountListRelationFilter
+  createdAt: DateTimeFilter
+  email: StringNullableFilter
+  emailVerified: DateTimeNullableFilter
+  id: StringFilter
+  image: StringNullableFilter
+  name: StringNullableFilter
+  role: EnumRoleFilter
+  sessions: SessionListRelationFilter
+  tenant: TenantWhereInput
+  tenantId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
 input UserWhereUniqueInput {
+  email: String
   id: String
 }

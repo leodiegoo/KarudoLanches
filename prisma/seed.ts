@@ -8,20 +8,6 @@ async function main() {
       description: "Lanches e Churros"
     }
   });
-
-  await prisma.user.create({
-    data: {
-      name: "Tenant do Karudo",
-      role: "TENANT"
-    }
-  });
-
-  await prisma.user.create({
-    data: {
-      name: "Leonardo",
-      role: "USER"
-    }
-  });
 }
 
 main()

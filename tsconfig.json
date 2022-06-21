@@ -17,16 +17,13 @@
     "incremental": true,
     "paths": {
       "@/components/*": [
-        "src/components/*.tsx",
-        "src/components/*.ts"
+        "src/components/*",
       ],
       "@/pages/*": [
-        "src/pages/*.tsx",
-        "src/pages/*.ts"
+        "src/pages/*",
       ],
       "@/@core/*": [
-        "src/@core/*.tsx",
-        "src/@core/*.ts"
+        "src/@core/*",
       ],
     }
   },
