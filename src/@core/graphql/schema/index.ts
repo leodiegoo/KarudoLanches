@@ -60,8 +60,17 @@ const Tenant = objectType({
 
 export const baseSchema = makeSchema({
   types: [User, Tenant, Query, Mutation, GQLDate],
+  shouldGenerateArtifacts: process.env.NODE_ENV === "development",
   // @ts-ignore
-  plugins: [nexusPrisma({ experimentalCRUD: true })],
+  plugins: [
+    // @ts-ignore
+    nexusPrisma({
+      experimentalCRUD: true,
+      outputs: {
+        typegen: path.join(process.cwd(), "generated", "typegen-nexus-plugin-prisma.d.ts")
+      }
+    })
+  ],
   outputs: {
     typegen: path.join(process.cwd(), "generated", "nexus-typegen.ts"),
     schema: path.join(process.cwd(), "generated", "schema.graphql")
