@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --cache --fix",
     "prepare": "husky install",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "dev:tools": "concurrently -r \"npx prisma studio\" \"npx graphql-codegen --watch\" "
   },
   "dependencies": {
     "@apollo/client": "^3.6.8",
@@ -21,6 +22,7 @@
     "@next-auth/prisma-adapter": "^1.0.3",
     "@nexus/schema": "^0.20.1",
     "@prisma/client": "^3.15.2",
+    "@urql/devtools": "^2.0.3",
     "airbnb": "^0.0.2",
     "apollo-server-micro": "^3.9.0",
     "clsx": "^1.1.1",
@@ -40,9 +42,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-is": "^18.2.0",
-    "urql": "^2.2.2",
-    "@urql/devtools": "^2.0.3"
-
+    "urql": "^2.2.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
@@ -58,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "commitizen": "^4.2.4",
+    "concurrently": "^7.2.2",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
