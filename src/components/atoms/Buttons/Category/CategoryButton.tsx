@@ -8,7 +8,7 @@ type CategoryButtonProps = {
 const CategoryButton = ({ children, active = false }: PropsWithChildren<CategoryButtonProps>) => {
   return (
     <Box>
-      <Button variant={active ? "contained" : "outlined"} size="small">
+      <Button sx={{ borderRadius: 100 }} variant={active ? "contained" : "outlined"} size="small">
         <Typography noWrap textTransform="lowercase">
           {children}
         </Typography>
