@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { CategoryButton } from "@/components/atoms/Buttons/Category/CategoryButton";
+import { ProductPopular } from "@/components/molecules/ProductPopular";
 
 const CATEGORIES_MOCK = [
   {
@@ -69,9 +70,47 @@ const CATEGORIES_MOCK = [
   }
 ];
 
+const PRODUCTS_MOCK = [
+  {
+    id: 1,
+    description: "X-Burg",
+    price: "R$ 10,00",
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+  },
+  {
+    id: 2,
+    description: "X-Burg",
+    price: "R$ 10,00",
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+  },
+  {
+    id: 3,
+    description: "X-Burg",
+    price: "R$ 10,00",
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+  },
+  {
+    id: 4,
+    description: "X-Burg",
+    price: "R$ 10,00",
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+  },
+  {
+    id: 5,
+    description: "X-Burg",
+    price: "R$ 10,00",
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+  }
+];
+
 const Home: NextPage = () => {
   const [address, setAddress] = useState(10);
   const { data: session } = useSession();
+
+  const getRandomPhoto = () => {
+    const random = Math.floor(Math.random() * 100);
+    return `https://source.unsplash.com/random?sig=${random}`;
+  };
 
   return (
     <Container maxWidth="sm">
@@ -90,7 +129,7 @@ const Home: NextPage = () => {
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" component="main">
+      <Box display="flex" flexDirection="column" component="main" rowGap={2}>
         <Box display="flex" flexDirection="column" mt={1}>
           <Typography variant="h4" component="h4">
             Olá, <strong>Leonardo!</strong>
@@ -126,6 +165,30 @@ const Home: NextPage = () => {
             />
           </Box>
         </Box>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="h6" component="h6">
+            Categorias
+          </Typography>
+          <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
+            {CATEGORIES_MOCK.map((category) => (
+              <CategoryButton active={category.active}>{category.description}</CategoryButton>
+            ))}
+          </Box>
+        </Box>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="h6" component="h6">
+            Popular nessa semana
+          </Typography>
+          <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
+            {PRODUCTS_MOCK.map((product) => (
+              <ProductPopular
+                description={product.description}
+                image={product.image}
+                price={product.price}
+              />
+            ))}
+          </Box>
+        </Box>
       </Box>
       {/* <Box display="flex" flexDirection="row">
         {!session ? (
@@ -138,18 +201,6 @@ const Home: NextPage = () => {
           </button>
         )}
       </Box> */}
-      <Box display="flex" flexDirection="column">
-        <Typography variant="h6" component="h6">
-          Categorias
-        </Typography>
-        <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
-          {CATEGORIES_MOCK.map((category) => (
-            <CategoryButton active={category.active || false}>
-              {category.description}
-            </CategoryButton>
-          ))}
-        </Box>
-      </Box>
     </Container>
   );
 };
