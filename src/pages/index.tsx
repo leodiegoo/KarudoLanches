@@ -1,27 +1,19 @@
 import type { NextPage } from "next";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import {
-  Avatar,
-  IconButton,
-  InputAdornment,
-  MenuItem,
-  Select,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Avatar, IconButton, MenuItem, Select, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { CategoryButton } from "@/components/atoms/Buttons/Category/CategoryButton";
 import { ProductPopular } from "@/components/molecules/ProductPopular";
+import { SearchTextField } from "@/components/atoms/TextFields/Home/Search";
 
 const CATEGORIES_MOCK = [
   {
     description: "Promoção: lanches",
-    active: true
+    active: false
   },
   {
     description: "Lanches"
@@ -74,31 +66,31 @@ const PRODUCTS_MOCK = [
   {
     id: 1,
     description: "X-Burg",
-    price: "R$ 10,00",
+    price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 2,
     description: "X-Burg",
-    price: "R$ 10,00",
+    price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 3,
     description: "X-Burg",
-    price: "R$ 10,00",
+    price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 4,
     description: "X-Burg",
-    price: "R$ 10,00",
+    price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 5,
     description: "X-Burg",
-    price: "R$ 10,00",
+    price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   }
 ];
@@ -129,7 +121,7 @@ const Home: NextPage = () => {
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" component="main" rowGap={2}>
+      <Box display="flex" flexDirection="column" component="main" rowGap={1}>
         <Box display="flex" flexDirection="column" mt={1}>
           <Typography variant="h4" component="h4">
             Olá, <strong>Leonardo!</strong>
@@ -151,24 +143,10 @@ const Home: NextPage = () => {
             </Select>
           </Box>
           <Box>
-            <TextField
-              margin="normal"
-              fullWidth
-              placeholder="Pesquisar..."
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                )
-              }}
-            />
+            <SearchTextField />
           </Box>
         </Box>
         <Box display="flex" flexDirection="column">
-          <Typography variant="h6" component="h6">
-            Categorias
-          </Typography>
           <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
             {CATEGORIES_MOCK.map((category) => (
               <CategoryButton active={category.active}>{category.description}</CategoryButton>

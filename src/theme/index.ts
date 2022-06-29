@@ -10,6 +10,25 @@ const theme = createTheme({
     },
     secondary: {
       main: grey[900]
+    },
+    background: {
+      default: "#f6f6f6"
+    }
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#fff"
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        outlinedPrimary: {
+          backgroundColor: "#f9f9f9"
+        }
+      }
     }
   }
 });
