@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react";
 import { CategoryButton } from "@/components/atoms/Buttons/Category/CategoryButton";
 import { ProductPopular } from "@/components/molecules/ProductPopular";
 import { SearchTextField } from "@/components/atoms/TextFields/Home/Search";
+import { SubtitleTypography } from "@/components/atoms/Typography/Subtitle";
+import { ProductTop } from "@/components/molecules/ProductTop";
 
 const CATEGORIES_MOCK = [
   {
@@ -65,31 +67,36 @@ const CATEGORIES_MOCK = [
 const PRODUCTS_MOCK = [
   {
     id: 1,
-    description: "X-Burg",
+    name: "X-Burg",
+    description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 2,
-    description: "X-Burg",
+    name: "X-Burg",
+    description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 3,
-    description: "X-Burg",
+    name: "X-Burg",
+    description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 4,
-    description: "X-Burg",
+    name: "X-Burg",
+    description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   },
   {
     id: 5,
-    description: "X-Burg",
+    name: "X-Burg",
+    description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
     image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
   }
@@ -121,7 +128,7 @@ const Home: NextPage = () => {
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" flexDirection="column" component="main" rowGap={1}>
+      <Box display="flex" flexDirection="column" component="main" rowGap={2}>
         <Box display="flex" flexDirection="column" mt={1}>
           <Typography variant="h4" component="h4">
             Olá, <strong>Leonardo!</strong>
@@ -147,6 +154,7 @@ const Home: NextPage = () => {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column">
+          <SubtitleTypography>Categorias</SubtitleTypography>
           <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
             {CATEGORIES_MOCK.map((category) => (
               <CategoryButton active={category.active}>{category.description}</CategoryButton>
@@ -154,12 +162,19 @@ const Home: NextPage = () => {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column">
-          <Typography variant="h6" component="h6">
-            Popular nessa semana
-          </Typography>
+          <SubtitleTypography>Populares</SubtitleTypography>
           <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="row" columnGap={1} py={1}>
             {PRODUCTS_MOCK.map((product) => (
-              <ProductPopular
+              <ProductPopular name={product.name} image={product.image} price={product.price} />
+            ))}
+          </Box>
+        </Box>
+        <Box display="flex" flexDirection="column">
+          <SubtitleTypography>Tops da semana</SubtitleTypography>
+          <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="column" rowGap={1}>
+            {PRODUCTS_MOCK.slice(0, 3).map((product) => (
+              <ProductTop
+                name={product.name}
                 description={product.description}
                 image={product.image}
                 price={product.price}
@@ -167,6 +182,7 @@ const Home: NextPage = () => {
             ))}
           </Box>
         </Box>
+        <Box display="flex" flexDirection="row" />
       </Box>
       {/* <Box display="flex" flexDirection="row">
         {!session ? (

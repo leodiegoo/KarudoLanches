@@ -35,7 +35,10 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [".ts", ".tsx"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -52,9 +55,13 @@
       }
     ],
     // suppress errors for missing 'import React' in files
-    "react/react-in-jsx-scope": ["off"],
+    "react/react-in-jsx-scope": [
+      "off"
+    ],
     // suppress errors for Function component is not a function declaration turning off allows us to use arrow functions
-    "react/function-component-definition": ["off"],
+    "react/function-component-definition": [
+      "off"
+    ],
     "react/prop-types": "off",
     "react/require-default-props": "off",
     "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
@@ -72,13 +79,22 @@
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ]
       }
     ],
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "react/no-unused-prop-types": "off"
   }
 }
