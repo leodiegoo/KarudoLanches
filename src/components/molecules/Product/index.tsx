@@ -6,14 +6,15 @@ import CardMedia from "@mui/material/CardMedia";
 
 import AddIcon from "@mui/icons-material/Add";
 
-type ProductTopProps = {
+type ProductProps = {
   name: string;
   description?: string;
   price: string;
   image: string;
+  topOfWeek?: boolean;
 };
 
-const ProductTop: FC<ProductTopProps> = ({ name, price, image, description }) => {
+const Product: FC<ProductProps> = ({ name, price, image, description, topOfWeek = false }) => {
   return (
     <Card
       sx={{ display: "flex", borderWidth: 0, borderRadius: 3, position: "relative" }}
@@ -22,6 +23,11 @@ const ProductTop: FC<ProductTopProps> = ({ name, price, image, description }) =>
       <CardActionArea sx={{ display: "flex", px: 1 }}>
         <CardMedia component="img" sx={{ width: 100 }} image={image} alt={name} />
         <CardContent>
+          {topOfWeek && (
+            <Typography lineHeight={0.5} color="primary" fontSize={10} fontWeight={700}>
+              Top da semana
+            </Typography>
+          )}
           <Typography component="div" fontWeight={700}>
             {name}
           </Typography>
@@ -49,4 +55,4 @@ const ProductTop: FC<ProductTopProps> = ({ name, price, image, description }) =>
   );
 };
 
-export { ProductTop };
+export { Product };

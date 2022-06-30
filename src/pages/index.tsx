@@ -10,7 +10,7 @@ import { CategoryButton } from "@/components/atoms/Buttons/Category/CategoryButt
 import { ProductPopular } from "@/components/molecules/ProductPopular";
 import { SearchTextField } from "@/components/atoms/TextFields/Home/Search";
 import { SubtitleTypography } from "@/components/atoms/Typography/Subtitle";
-import { ProductTop } from "@/components/molecules/ProductTop";
+import { Product } from "@/components/molecules/Product";
 
 const CATEGORIES_MOCK = [
   {
@@ -70,35 +70,40 @@ const PRODUCTS_MOCK = [
     name: "X-Burg",
     description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
-    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150",
+    topOfWeek: true
   },
   {
     id: 2,
     name: "X-Burg",
     description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
-    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150",
+    topOfWeek: false
   },
   {
     id: 3,
     name: "X-Burg",
     description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
-    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150",
+    topOfWeek: true
   },
   {
     id: 4,
     name: "X-Burg",
     description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
-    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150",
+    topOfWeek: true
   },
   {
     id: 5,
     name: "X-Burg",
     description: "Hambúrguer, queijo, presunto, batata palha e maionese",
     price: "R$10,00",
-    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150"
+    image: "https://rfm2latam.mcd.com/rfm2OnlineApp/images/27/pt_BR/17%20DLV.png?1628191945150",
+    topOfWeek: false
   }
 ];
 
@@ -170,16 +175,19 @@ const Home: NextPage = () => {
           </Box>
         </Box>
         <Box display="flex" flexDirection="column">
-          <SubtitleTypography>Tops da semana</SubtitleTypography>
+          <SubtitleTypography>Menu</SubtitleTypography>
           <Box sx={{ overflowY: "auto" }} display="flex" flexDirection="column" rowGap={1}>
-            {PRODUCTS_MOCK.slice(0, 3).map((product) => (
-              <ProductTop
-                name={product.name}
-                description={product.description}
-                image={product.image}
-                price={product.price}
-              />
-            ))}
+            {PRODUCTS_MOCK.sort((a, b) => Number(b.topOfWeek) - Number(a.topOfWeek)).map(
+              (product) => (
+                <Product
+                  name={product.name}
+                  description={product.description}
+                  image={product.image}
+                  price={product.price}
+                  topOfWeek={product.topOfWeek}
+                />
+              )
+            )}
           </Box>
         </Box>
         <Box display="flex" flexDirection="row" />
