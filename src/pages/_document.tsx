@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,500,600,700,800,900&display=swap"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400,500,600,700,800,900&display=swap"
           />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}

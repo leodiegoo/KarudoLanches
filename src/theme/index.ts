@@ -16,7 +16,14 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: ["Nunito", "Roboto", "Helvetica Neue", "Arial", "sans-serif"].join(",")
+    fontFamily: [
+      "Source Sans Pro",
+      "Nunito",
+      "Roboto",
+      "Helvetica Neue",
+      "Arial",
+      "sans-serif"
+    ].join(",")
   },
   components: {
     MuiOutlinedInput: {
