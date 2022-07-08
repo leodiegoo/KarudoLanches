@@ -66,16 +66,24 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
-  role          Role      @default(USER)
 
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
-  tenantId  String?
+  phone    String?
+  document String?
+
+  accounts Account[]
+  sessions Session[]
+  role     Role      @default(USER)
+
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  Order Order[]
   @@map("users")
 }
 
@@ -87,4 +95,241 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Address {
+  id          String @id @default(cuid())
+  description String
+  district    String
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  User          User[]
+  DeliveryTrack DeliveryTrack[]
+}
+
+model BillPaymentType {
+  id          String @id @default(cuid())
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  description String
+  blocked     Boolean @default(false)
+
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  CategoryAddition CategoryAddition[]
+  Product          Product[]
+}
+
+model OrderStatus {
+  id          String @id @default(cuid())
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+}
+
+model OrderType {
+  id          String @id @default(cuid())
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+}
+
+model CategoryAddition {
+  id          String  @id @default(cuid())
+  description String
+  quantity    Int
+  blocked     Boolean @default(false)
+  position    Int
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  CategoryAdditionOptional CategoryAdditionOptional[]
+  ProductPrice             ProductPrice[]
+}
+
+model CategoryAdditionOptional {
+  id          String  @id @default(cuid())
+  description String
+  blocked     Boolean @default(false)
+  price       Decimal
+
+  categoryAdditionId String
+  categoryAddition   CategoryAddition @relation(fields: [categoryAdditionId], references: [id], onDelete: Cascade)
+
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  OrderDetailOptional OrderDetailOptional[]
+}
+
+model DeliveryTrack {
+  id            String @id @default(cuid())
+  estimatedTime String
+
+  addressId String
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DeliveryPrice {
+  id          String  @id @default(cuid())
+  description String
+  price       Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+}
+
+model OrderOrigin {
+  id          String @id @default(cuid())
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+}
+
+model Bill {
+  id       String   @id @default(cuid())
+  amount   Decimal
+  discount Decimal?
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  BillPayment BillPayment[]
+  Order       Order[]
+}
+
+model BillPayment {
+  id     String @id @default(cuid())
+  billId String
+  bill   Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  amount   Decimal
+  discount Decimal?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  typeId String
+  type   OrderType @relation(fields: [typeId], references: [id], onDelete: Cascade)
+
+  statusId String
+  status   OrderStatus @relation(fields: [statusId], references: [id], onDelete: Cascade)
+
+  orderOriginId String
+  orderOrigin   OrderOrigin @relation(fields: [orderOriginId], references: [id], onDelete: Cascade)
+
+  billId String?
+  bill   Bill?   @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  deliveryPriceId String
+  deliveryPrice   DeliveryPrice @relation(fields: [deliveryPriceId], references: [id], onDelete: Cascade)
+
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Product     Product?      @relation(fields: [productId], references: [id])
+  productId   String?
+  OrderDetail OrderDetail[]
+}
+
+model OrderDetail {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  observation String?
+  quantity    Int
+  price       Decimal
+
+  productPriceId String
+  productPrice   ProductPrice @relation(fields: [productPriceId], references: [id], onDelete: Cascade)
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  OrderDetailOptional OrderDetailOptional[]
+}
+
+model OrderDetailOptional {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  quantity Int
+  price    Decimal
+
+  categoryAdditionOptionalId String
+  categoryAdditionOptional   CategoryAdditionOptional @relation(fields: [categoryAdditionOptionalId], references: [id], onDelete: Cascade)
+
+  orderDetailId String
+  orderDetail   OrderDetail @relation(fields: [orderDetailId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  logo        String?
+
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  blocked Boolean @default(false)
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Order        Order[]
+  ProductPrice ProductPrice[]
+  OrderDetail  OrderDetail[]
+}
+
+model ProductPrice {
+  id             String   @id @default(cuid())
+  description    String
+  price          Decimal
+  promotionPrice Decimal?
+  blocked        Boolean  @default(false)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  categoryAdditionId String
+  categoryAddition   CategoryAddition @relation(fields: [categoryAdditionId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  OrderDetail OrderDetail[]
 }
