@@ -95,6 +95,9 @@
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
     "consistent-return": "off",
-    "react/no-unused-prop-types": "off"
+    "react/no-unused-prop-types": "off",
+    "no-var": "off",
+    "vars-on-top": "off",
+    "no-param-reassign": "off"
   }
 }

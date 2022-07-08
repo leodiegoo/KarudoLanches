@@ -1,18 +1,16 @@
-import { useAllTenantsQuery } from "../../generated/graphql";
+import { trpc } from "@/utils/trpc";
 
 function AllTenants() {
-  const [result] = useAllTenantsQuery();
-  const { data, fetching, error } = result;
+  const { data, isLoading } = trpc.useQuery(["example.allTenants"]);
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message} </p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
       <h1>AllTenants</h1>
-      <p>There are {data?.allTenants?.length} tenant(s) in the database</p>
+      <p>There are {data?.length} tenant(s) in the database</p>
       <ul>
-        {data?.allTenants?.map((tenant) => (
+        {data?.map((tenant) => (
           <li key={tenant?.id}>{tenant?.name}</li>
         ))}
       </ul>

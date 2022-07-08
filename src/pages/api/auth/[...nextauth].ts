@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 
 // Enable studio auth in development mode
@@ -21,14 +21,15 @@ const cookiesPolicy =
 
 const prisma = new PrismaClient();
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
   adapter: PrismaAdapter(prisma),
-  // callbacks: {
-  //   session({ session, token, user }) {
-  //     return session; // The return type will match the one returned in `useSession()`
-  //   }
-  // },
+  callbacks: {
+    async session({ session, user }) {
+      session.user.id = user.id;
+      return session;
+    }
+  },
   providers: [
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID || "",
@@ -39,4 +40,6 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin"
   }
-});
+};
+
+export default NextAuth(authOptions);

@@ -228,16 +228,16 @@ const Home: NextPage = () => {
           </Box>
         </Box>
         {/* <Box display="flex" flexDirection="row">
-        {!session ? (
-          <button type="button" onClick={() => signIn()}>
-            Sign in
-          </button>
-        ) : (
-          <button type="button" onClick={() => signOut()}>
-            Sign out
-          </button>
-        )}
-      </Box> */}
+          {!session ? (
+            <button type="button" onClick={() => signIn()}>
+              Sign in
+            </button>
+          ) : (
+            <button type="button" onClick={() => signOut()}>
+              Sign out
+            </button>
+          )}
+        </Box> */}
         <Box display="flex" position="fixed" width="100%" justifyContent="center" bottom={16}>
           <Fab size="large" color="primary" variant="extended">
             <Typography textTransform="initial" component="p">

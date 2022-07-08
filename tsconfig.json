@@ -31,7 +31,10 @@
       ],
       "@/images/*": [
         "src/images/*",
-      ]
+      ],
+      "@/utils/*": [
+        "src/utils/*",
+      ],
     }
   },
   "include": [
