@@ -4,3 +4,4 @@ next.config.js
 lint-staged.config.js
 commitlint.config.js
 generated/
+src/server/env.js

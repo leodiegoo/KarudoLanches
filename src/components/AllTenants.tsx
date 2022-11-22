@@ -1,4 +1,4 @@
-import { trpc } from "@/utils/trpc";
+import { trpc } from "src/server/trpc";
 
 function AllTenants() {
   const { data, isLoading } = trpc.useQuery(["example.allTenants"]);
