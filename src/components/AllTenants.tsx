@@ -1,7 +1,7 @@
-import { trpc } from "src/server/trpc";
+import { trpc } from "@/utils/trpc";
 
 function AllTenants() {
-  const { data, isLoading } = trpc.useQuery(["example.allTenants"]);
+  const { isLoading, data } = trpc.tenant.allTentans.useQuery();
 
   if (isLoading) return <p>Loading...</p>;
 

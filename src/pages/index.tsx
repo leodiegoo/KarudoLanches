@@ -11,6 +11,7 @@ import { ProductPopular } from "@/components/molecules/ProductPopular";
 import { SearchTextField } from "@/components/atoms/TextFields/Home/Search";
 import { SubtitleTypography } from "@/components/atoms/Typography/Subtitle";
 import { Product } from "@/components/molecules/Product";
+import AllTenants from "@/components/AllTenants";
 
 const CATEGORIES_MOCK = [
   {
@@ -142,6 +143,7 @@ const Home: NextPage = () => {
         bgcolor="white"
         marginBottom="1rem"
       >
+        <AllTenants />
         <Container maxWidth="sm">
           <Box display="flex" flexDirection="row">
             <Box flexGrow={1}>
