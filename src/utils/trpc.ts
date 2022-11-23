@@ -99,7 +99,8 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
   /**
    * Set headers or status code when doing SSR
    */
-  responseMeta(opts) {
+  // @ts-ignore
+  responseMeta(opts: any): any {
     const ctx = opts.ctx as SSRContext;
 
     if (ctx.status) {

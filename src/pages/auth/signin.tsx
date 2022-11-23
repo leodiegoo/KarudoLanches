@@ -40,7 +40,14 @@ export default function SignIn() {
           rowGap: 2
         }}
       >
-        <Image style={{ borderRadius: 10 }} src={Logo} width={160} height={160} layout="fixed" />
+        <Image
+          alt="logo"
+          style={{ borderRadius: 10 }}
+          src={Logo}
+          width={160}
+          height={160}
+          layout="fixed"
+        />
         <Typography
           textAlign="center"
           component="h1"
